@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOver : MonoBehaviour {
-    void OnCollisionExit2D () {
+    void OnCollisionEnter2D() {
         ObjectsGenerator.isGameOver = true;
     }
 }
