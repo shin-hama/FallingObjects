@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Images : MonoBehaviour
 {
-    public Image Image;
+    private Image Image;
     // Start is called before the first frame update
     void Start()
     {

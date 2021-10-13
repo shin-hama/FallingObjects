@@ -15,6 +15,10 @@ public class Objects : MonoBehaviour {
     {
         rigid = GetComponent<Rigidbody2D>();
         isMoves.Add(moving);
+        if (Settings.image != null)
+        {
+            rigid.GetComponent<SpriteRenderer>().sprite = Settings.image;
+        }
     }
 
     /// <summary>

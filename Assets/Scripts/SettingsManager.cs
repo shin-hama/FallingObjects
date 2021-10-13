@@ -20,4 +20,9 @@ public class SettingsManager : MonoBehaviour
             Item.GetComponent<Image>().sprite = Settings.image;
         }
     }
+
+    public void OnOKClicked()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+    }
 }

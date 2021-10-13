@@ -20,4 +20,9 @@ public class TitleManager : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
+
+    public void OnSettingClicked()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+    }
 }
