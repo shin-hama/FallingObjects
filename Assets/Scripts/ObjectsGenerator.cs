@@ -107,6 +107,12 @@ public class ObjectsGenerator : MonoBehaviour
         }
         geneAnimal = Instantiate(animals[Random.Range(0, animals.Length)], new Vector2(0, pivotHeight), Quaternion.identity); //回転せずに生成
         geneAnimal.GetComponent<Rigidbody2D>().isKinematic = true; //物理挙動をさせない状態にする
+        if (Settings.image)
+        {
+            SpriteMask mask = geneAnimal.GetComponent<SpriteMask>();
+            mask.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Settings.image;
+            mask.transform.GetChild(0).GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        }
     }
 
     /// <summary>

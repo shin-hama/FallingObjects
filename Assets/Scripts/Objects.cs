@@ -17,7 +17,7 @@ public class Objects : MonoBehaviour {
         isMoves.Add(moving);
         if (Settings.image != null)
         {
-            rigid.GetComponent<SpriteRenderer>().sprite = Settings.image;
+            
         }
     }
 

@@ -20,6 +20,7 @@ public class Images : MonoBehaviour
     public void MyPointerDownUI()
     {
         Settings.image = Image.sprite;
+        SettingsManager.isClicked = true;
     }
 
 }
