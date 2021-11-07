@@ -968,10 +968,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animals:
+  - {fileID: 7182461803784677058, guid: 18ea0ed5d194af443a10d49f870c01bf, type: 3}
+  - {fileID: 1463245967460902791, guid: 560f77774cfd5764694020bc533f24a7, type: 3}
   - {fileID: 1273914850056482363, guid: 885920e3b2a2f2642953143399ac1e4a, type: 3}
-  - {fileID: 1273914850056482363, guid: 885920e3b2a2f2642953143399ac1e4a, type: 3}
-  - {fileID: 1273914850056482363, guid: 885920e3b2a2f2642953143399ac1e4a, type: 3}
-  - {fileID: 1273914850056482363, guid: 885920e3b2a2f2642953143399ac1e4a, type: 3}
+  - {fileID: 2090368961907018651, guid: 0eb86d77986c0c74495ca847954cb8db, type: 3}
   mainCamera: {fileID: 0}
   pivotHeight: 3
   isGene: 0
