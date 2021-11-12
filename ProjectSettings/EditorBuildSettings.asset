@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: 7ded9109375ac41418edf374304f3dda
+  - enabled: 1
+    path: Assets/Scenes/CropImage.unity
+    guid: 1eb48abe82be19a45bda4840726e170c
   m_configObjects: {}
