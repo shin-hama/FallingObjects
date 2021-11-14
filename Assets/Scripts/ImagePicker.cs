@@ -10,7 +10,7 @@ public class ImagePicker : MonoBehaviour
     [SerializeField]
     public Unimgpicker imagePicker;
 
-	[System.Obsolete]
+    [System.Obsolete]
     void Awake()
     {
         // Unimgpicker returns the image file path.
@@ -24,7 +24,7 @@ public class ImagePicker : MonoBehaviour
         {
             Debug.Log(message);
         };
-	}
+    }
 
     public void OnPressShowPicker()
     {
@@ -35,26 +35,19 @@ public class ImagePicker : MonoBehaviour
 
     private IEnumerator LoadImage(string path)
     {
-        yield return new WaitForEndOfFrame(); //ƒtƒŒ[ƒ€‚ÌI‚í‚è‚Ü‚Å‘Ò‚Âi–³‚¢‚Æ–³ŒÀƒ‹[ƒvj
+        yield return new WaitForEndOfFrame(); //ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ÌIï¿½ï¿½ï¿½Ü‚Å‘Ò‚Âiï¿½ï¿½ï¿½ï¿½ï¿½Æ–ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½j
 
         var test = System.IO.File.ReadAllBytes(path);
-        var tex= new Texture2D(128, 128);
+        var tex = new Texture2D(128, 128);
         var s = tex.LoadImage(test);
         if (s == false)
         {
             Debug.LogError("Failed to load texture url:");
         }
 
-		var point = new Vector3(0.5f, 0.5f, 10);
-		var edge = Camera.main.ViewportToWorldPoint(point);
+        var point = new Vector3(0.5f, 0.5f, 10);
+        var edge = Camera.main.ViewportToWorldPoint(point);
 
-        Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect);
-
-		GameObject obj = (GameObject)Resources.Load("ImageBox");
-		obj.GetComponent<SpriteRenderer>().sprite = sprite;
-        //Instantiate(obj, edge, Quaternion.identity);
-        //Crop(tex);
-        //output.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 10));
         CropImageMaster.LoadedImage = tex;
     }
 

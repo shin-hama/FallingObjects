@@ -5,15 +5,15 @@ using UnityEngine;
 public class ObjectsGenerator : MonoBehaviour
 {
 
-    public GameObject[] animals; //どうぶつ取得配列
+    public SpriteRenderer[] animals; //どうぶつ取得配列
     public Camera mainCamera; //カメラ取得用変数
     public float pivotHeight = 3; //生成位置の基準
 
     public static int animalNum = 0; //生成された動物の個数を保管
     public static bool isGameOver = false; //ゲームオーバー判定
 
-    private GameObject geneAnimal; //どうぶつ生成（単品）
-    private List<GameObject> generatedAnimals; //配置済みのオブジェクト
+    private SpriteRenderer geneAnimal; //どうぶつ生成（単品）
+    private List<SpriteRenderer> generatedAnimals; //配置済みのオブジェクト
     public bool isGene; //生成されているか
     public bool isFall; //生成された動物が落下中か
 
@@ -32,7 +32,7 @@ public class ObjectsGenerator : MonoBehaviour
         Objects.isMoves.Clear(); //移動してる動物のリストを初期化
         StartCoroutine(StateReset());
         mainCamera = Camera.main;
-        generatedAnimals = new List<GameObject>();
+        generatedAnimals = new List<SpriteRenderer>();
     }
 
     // 毎フレーム呼び出される(60fpsだったら1秒間に60回)
@@ -68,6 +68,8 @@ public class ObjectsGenerator : MonoBehaviour
                 geneAnimal.GetComponent<Rigidbody2D>().isKinematic = false; //――――物理挙動・オン
                 animalNum++; //どうぶつ生成
                 isFall = true; //落ちて、どうぞ
+                Objects.isMoves.ForEach(item => item.isMove = true);
+                Objects.isMoves.ForEach(item => item.isFalling = true);
             }
             RotateButton.onButtonDown = false; //マウスが上がったらボタンも離れたと思う
         }
@@ -107,11 +109,23 @@ public class ObjectsGenerator : MonoBehaviour
         }
         geneAnimal = Instantiate(animals[Random.Range(0, animals.Length)], new Vector2(0, pivotHeight), Quaternion.identity); //回転せずに生成
         geneAnimal.GetComponent<Rigidbody2D>().isKinematic = true; //物理挙動をさせない状態にする
-        if (Settings.image)
+        if (SettingsManager.croppedTexture)
         {
-            SpriteMask mask = geneAnimal.GetComponent<SpriteMask>();
-            mask.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Settings.image;
-            mask.transform.GetChild(0).GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            var tex = SettingsManager.croppedTexture;
+            var fromTex = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.FullRect);
+
+            // 新スプライトのセット前に元のサイズを覚えておき...
+            Vector2 spriteSize = geneAnimal.sprite.bounds.size;
+            Vector3 spriteScale = geneAnimal.transform.localScale;
+
+            // 新スプライトをセットして...
+            geneAnimal.sprite = fromTex;
+
+            // 描画モードをSlicedに切り替え、覚えておいたサイズをセットする
+            geneAnimal.drawMode = SpriteDrawMode.Sliced;
+            geneAnimal.size = spriteSize;
+            geneAnimal.transform.localScale = spriteScale;
+
         }
     }
 

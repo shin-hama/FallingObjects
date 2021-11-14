@@ -1,7 +1,8 @@
 
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
 
     public static bool isCollision;//衝突検出変数
 
@@ -22,5 +23,10 @@ public class CameraController : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision)
     {
         isCollision = false;
+    }
+
+    public void Move(Vector3 translation)
+    {
+        transform.Translate(translation);
     }
 }

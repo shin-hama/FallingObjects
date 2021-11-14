@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CropImageMaster: MonoBehaviour
+public class CropImageMaster : MonoBehaviour
 {
-	public static Texture2D LoadedImage = null;
-	public static RawImage croppedImageHolder;
+    public static Texture2D LoadedImage = null;
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
     }
 
@@ -18,56 +17,57 @@ public class CropImageMaster: MonoBehaviour
     {
         if (LoadedImage)
         {
-			Crop();
-        } else
+            Crop();
+        }
+        else
         {
-			UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
-		}
-	}
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+        }
+    }
 
-	public void Crop()
-	{
-		// If image cropper is already open, do nothing
-		if (ImageCropper.Instance.IsOpen)
-			return;
+    public void Crop()
+    {
+        // If image cropper is already open, do nothing
+        if (ImageCropper.Instance.IsOpen)
+            return;
 
-		StartCoroutine(TakeScreenshotAndCrop(LoadedImage));
-	}
+        StartCoroutine(TakeScreenshotAndCrop(LoadedImage));
+    }
 
-	private IEnumerator TakeScreenshotAndCrop(Texture2D image)
-	{
-		yield return new WaitForEndOfFrame();
+    private IEnumerator TakeScreenshotAndCrop(Texture2D image)
+    {
+        yield return new WaitForEndOfFrame();
 
-		float minAspectRatio, maxAspectRatio;
-		minAspectRatio = 1f;
-		maxAspectRatio = 1f;
+        float minAspectRatio, maxAspectRatio;
+        minAspectRatio = 1f;
+        maxAspectRatio = 1f;
 
-		ImageCropper.Instance.Show(image, (bool result, Texture originalImage, Texture2D croppedImage) =>
-		{
-			if (result)
+        ImageCropper.Instance.Show(image, (bool result, Texture originalImage, Texture2D croppedImage) =>
+        {
+            if (result)
             {
-				SettingsManager.croppedTexture = croppedImage;
+                SettingsManager.croppedTexture = croppedImage;
             }
 
-			// Destroy the screenshot as we no longer need it in this case
-			Destroy(image);
-			LoadedImage = null;
-		},
-		settings: new ImageCropper.Settings()
-		{
-			ovalSelection = false,
-			autoZoomEnabled = true,
-			imageBackground = Color.clear, // transparent background
-			selectionMinAspectRatio = minAspectRatio,
-			selectionMaxAspectRatio = maxAspectRatio
+            // Destroy the screenshot as we no longer need it in this case
+            Destroy(image);
+            LoadedImage = null;
+        },
+        settings: new ImageCropper.Settings()
+        {
+            ovalSelection = false,
+            autoZoomEnabled = true,
+            imageBackground = Color.clear, // transparent background
+            selectionMinAspectRatio = minAspectRatio,
+            selectionMaxAspectRatio = maxAspectRatio
 
-		},
-		croppedImageResizePolicy: (ref int width, ref int height) =>
-		{
-			// uncomment lines below to save cropped image at half resolution
-			//width /= 2;
-			//height /= 2;
-		});
-	}
+        },
+        croppedImageResizePolicy: (ref int width, ref int height) =>
+        {
+            // uncomment lines below to save cropped image at half resolution
+            //width /= 2;
+            //height /= 2;
+        });
+    }
 
 }

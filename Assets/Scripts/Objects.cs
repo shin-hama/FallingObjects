@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Objects : MonoBehaviour {
-
+public class Objects : MonoBehaviour
+{
     public static List<Moving> isMoves = new List<Moving>();//移動してる動物がいないかチェックするリスト
 
     Rigidbody2D rigid;
@@ -15,27 +15,26 @@ public class Objects : MonoBehaviour {
     {
         rigid = GetComponent<Rigidbody2D>();
         isMoves.Add(moving);
-        if (Settings.image != null)
-        {
-            
-        }
     }
 
     /// <summary>
     /// 固定フレームレートで移動チェック
     /// </summary>
-    void FixedUpdate () {
-        if(rigid.velocity.magnitude > 0.01f)//少しでも移動していれば動いてると判定
+    void FixedUpdate()
+    {
+        if (moving.isFalling)
         {
-            //Debug.Log("動いてる");
-            moving.isMove = true;
+            if (rigid.IsSleeping())
+            {
+                moving.isMove = false;
+                moving.isFalling = false;
+            }
+            else
+            {
+                moving.isMove = true;
+            }
         }
-        else
-        {
-            //Debug.Log("動いてねぇッピ！");
-            moving.isMove = false;
-        }
-	}
+    }
 }
 
 /// <summary>
@@ -48,4 +47,5 @@ public class Objects : MonoBehaviour {
 public class Moving
 {
     public bool isMove;
+    public bool isFalling = false;
 }
